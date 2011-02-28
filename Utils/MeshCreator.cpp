@@ -68,7 +68,7 @@ namespace OpenEngine {
                 }
 
                 unsigned int quads = detail * detail;
-                unsigned int* i = new unsigned int[6 * quads];
+                unsigned short* i = new unsigned short[6 * quads];
                 IndicesPtr indices = IndicesPtr(new Indices(6 * quads, i));
 
                 unsigned int index = 0;
@@ -187,7 +187,7 @@ namespace OpenEngine {
                     colors->SetElement(i, color);
 
                 IndicesPtr indices = IndicesPtr(new Indices(36 * detail * detail));
-                unsigned int* i = indices->GetData();
+                unsigned short* i = indices->GetData();
 
                 // Top side indices
                 unsigned int index = 0;
@@ -476,7 +476,10 @@ namespace OpenEngine {
                 float inv = inverted ? -1 : 1;
                 
                 for (unsigned int i = 0; i < points; ++i){
-                    Vector<3, float> v = nodesGS[i];
+
+                    Vector<3, float> v = nodesGS[i];                    
+                    v = Vector<3,float>(v[0], -v[1], v[2]);
+                    
                     vertices->SetElement(i, v);
                     Vector<3, float> n = v.GetNormalize();
                     texCoords->SetElement(i, (n + Vector<3,float>(1.0)) * 0.5);
@@ -486,7 +489,7 @@ namespace OpenEngine {
 
                 unsigned int numFaces = facesGS.size();
                 unsigned int numVerts = 3 * numFaces;
-                unsigned int* i = new unsigned int[numVerts];
+                unsigned short* i = new unsigned short[numVerts];
                 IndicesPtr indices = IndicesPtr(new Indices(numVerts, i));
                 unsigned int index = 0;
                 for (unsigned int t = 0; t < numFaces; ++t){

@@ -365,7 +365,7 @@ namespace OpenEngine {
                 }
             }
             
-            unsigned int* indices = new unsigned int[k];
+            unsigned short* indices = new unsigned short[k];
             memcpy(indices, tmp, offset * sizeof(unsigned int));
             return IndicesPtr(new Indices(offset, indices));
         }
